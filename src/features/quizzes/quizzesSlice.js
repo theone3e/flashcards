@@ -1,21 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addQuizForTopic } from '../topics/topicsSlice';
 
-export const quizzesSlice = ({
+export const quizzesSlice = createSlice({
     name: 'quizzes',
     initialState: {
-        quizzes: {},
+        quizzes: {}
     },
     reducers: {
         addQuiz: (state, action) => {
-            //const {id, name, topicId, cardIds} = action.payload;
             const { id } = action.payload;
             state.quizzes[id] = action.payload;
-            // state.quizzes[id] = {
-            //     id: id,
-            //     name: name,
-            //     topicId: topicId,
-            //     cardIds: [],
-            // }
         }
     }
 });
@@ -24,7 +18,7 @@ export const addQuizForTopicId = (quiz) => {
     const {topicId, id} = quiz;
     return (dispatch) => {
         dispatch(quizzesSlice.actions.addQuiz(quiz));
-        dispatch(addQuizForTopicId({ topicId: topicId, quizId: id}));
+        dispatch(addQuizForTopic({ topicId: topicId, quizId: id}));
     };
 };
 
